@@ -1,0 +1,79 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci-cd:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test
+
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: |
+          bun install
+
+      - name: Lint with Eslint
+        run: |
+          bun run lint
+
+      - name: Check code formatting
+        run: |
+          bun run format:check
+
+      - name: Unit tests
+        run: |
+          bun test
+        env:
+          MONGO_URI: mongodb://127.0.0.1:27017/test
+          REDIS_URI: redis://127.0.0.1:6379
+          MYSQL_URI: mysql://root:password@127.0.0.1:3306/test
+          POSTGRES_URI: postgres://postgres:postgres@127.0.0.1:5432/postgres
+
+      # - id: semantic-release
+      #   name: Run semantic-release
+      #   run: |
+      #     npx semantic-release
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

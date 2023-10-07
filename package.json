@@ -1,0 +1,90 @@
+{
+  "name": "cronyx",
+  "version": "0.0.0",
+  "description": "Script-based task scheduler with scalable architecture, and integrated dependency management.",
+  "type": "module",
+  "module": "dist/index.ts",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "format": "prettier **/*.{md,ts,cts,json} -w",
+    "format:check": "prettier **/*.{md,ts,cts,json} --check",
+    "lint": "eslint **/*.{ts,cts} --quiet",
+    "lint:fix": "eslint **/*.{ts,cts} --quiet --fix",
+    "prepare": "husky install",
+    "prepublishOnly": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yujiosaka/Cronyx.git"
+  },
+  "keywords": [
+    "cron",
+    "crontab",
+    "cronjob",
+    "scheduler",
+    "job-scheduler",
+    "task-scheduler",
+    "mongodb",
+    "bun"
+  ],
+  "author": "Yuji Isobe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yujiosaka/Cronyx/issues"
+  },
+  "homepage": "https://github.com/yujiosaka/Cronyx#readme",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "cron-parser": "^4.9.0",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
+    "debug": "^4.3.4",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.7.2",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^11.0.0",
+    "@semantic-release/release-notes-generator": "^12.0.0",
+    "@types/debug": "^4.1.9",
+    "@types/uuid": "^9.0.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "bun-types": "latest",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "mongoose": "^7.6.1",
+    "mysql": "^2.18.1",
+    "pg": "^8.11.3",
+    "prettier": "^3.0.3",
+    "redis": "^4.6.10",
+    "semantic-release": "^22.0.5",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "mongoose": "^7.6.1",
+    "redis": "^4.6.10",
+    "typeorm": "^0.3.17"
+  },
+  "lint-staged": {
+    "**/*.{ts,cts}": [
+      "eslint --fix"
+    ],
+    "**/*.{md,ts,cts,json}": [
+      "prettier --write"
+    ]
+  }
+}

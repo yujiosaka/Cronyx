@@ -1,0 +1,6 @@
+{
+  "cSpell.words": ["cronyx"],
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}

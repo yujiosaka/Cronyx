@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  test:
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/test
+      - REDIS_URI=redis://redis:6379
+      - MYSQL_URI=mysql://root:password@mysql:3306/test
+      - POSTGRES_URI=postgres://postgres:postgres@postgres:5432/postgres
+    command: bun --watch test
+    restart: always
+    depends_on:
+      - mongodb
+      - mysql
+      - postgres
+      - redis
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    restart: always
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: test
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  node-modules: {}
