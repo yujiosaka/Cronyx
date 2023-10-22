@@ -70,10 +70,10 @@ jobs:
           MYSQL_URI: mysql://root:password@127.0.0.1:3306/test
           POSTGRES_URI: postgres://postgres:postgres@127.0.0.1:5432/postgres
 
-      # - id: semantic-release
-      #   name: Run semantic-release
-      #   run: |
-      #     npx semantic-release
-      #   env:
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - id: semantic-release
+        name: Run semantic-release
+        run: |
+          npx semantic-release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
