@@ -6,7 +6,7 @@ Script-based task scheduler with scalable architecture, and integrated dependenc
 
 ## 🌟 Features
 
-<img src="https://github.com/yujiosaka/Cronyx/assets/2261067/116f05f6-ac46-4601-9a56-2a5091c2bf21" alt="icon" width="300" align="right">
+<img src="https://github.com/yujiosaka/Cronyx/assets/2261067/09977f48-6bfb-48a6-93ad-3325fccc901a" alt="icon" width="300" align="right">
 
 Cronyx isn't just another job scheduler or task manager. It's a bridge that connects the simplicity of cronjobs and the power of modern job schedulers.
 
