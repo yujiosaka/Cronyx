@@ -1,6 +1,5 @@
 #!/usr/bin/env bun
-import Cronyx from "../../src";
-import { MysqlJobStore } from "../../src/job-store";
+import Cronyx, { MysqlJobStore } from "../../src";
 
 const jobStore = await MysqlJobStore.connect({ type: "mysql", url: Bun.env.MYSQL_URI });
 const cronyx = new Cronyx({ jobStore });

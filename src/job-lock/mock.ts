@@ -1,6 +1,6 @@
 import { z } from "zod";
+import type BaseJobLock from ".";
 import type { Optional } from "../util";
-import type BaseJobLock from "./base";
 
 type MockJobLockCreationAttributes = Optional<
   BaseJobLock<null>,

@@ -1,6 +1,5 @@
 #!/usr/bin/env bun
-import Cronyx from "../../src";
-import { PostgresJobStore } from "../../src/job-store";
+import Cronyx, { PostgresJobStore } from "../../src";
 
 const jobStore = await PostgresJobStore.connect({ type: "postgres", url: Bun.env.POSTGRES_URI });
 const cronyx = new Cronyx({ jobStore });

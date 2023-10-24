@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, mock, test } from "bun:test";
 import { addMilliseconds, subMilliseconds } from "date-fns";
-import type { Source } from "../src";
+import type { JobLockId, Source } from "../src";
 import Job from "../src/job";
 import RedisJobLock from "../src/job-lock/redis";
-import type BaseJobStore from "../src/job-store/base";
+import type BaseJobStore from "../src/job-store";
 
 describe.each([[false], [true]])("Job", (noLock) => {
   const now = new Date();
@@ -20,7 +20,7 @@ describe.each([[false], [true]])("Job", (noLock) => {
   const activatedJobLock = { ...lastJobLock, jobIntervalEndedAt, isActive: true, _id: noLock ? null : lastJobLock._id };
   const deactivatedJobLock = { ...activatedJobLock, isActive: false, updatedAt: addMilliseconds(now, 1) };
 
-  let jobStore: BaseJobStore<Source>;
+  let jobStore: BaseJobStore<JobLockId<Source>>;
   let job: Job<Source>;
 
   beforeEach(() => {

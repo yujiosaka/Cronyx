@@ -1,24 +1,17 @@
-/**
- * @public
- */
-export type { default as BaseJobStore } from "./base";
+import type BaseJobLock from "../job-lock";
 
 /**
  * @public
  */
-export { default as MongodbJobStore } from "./mongodb";
-
-/**
- * @public
- */
-export { default as RedisJobStore } from "./redis";
-
-/**
- * @public
- */
-export { default as MysqlJobStore } from "./typeorm/mysql";
-
-/**
- * @public
- */
-export { default as PostgresJobStore } from "./typeorm/postgres";
+export default interface BaseJobStore<T> {
+  close(): Promise<void>;
+  fetchLastJobLock(jobName: string): Promise<BaseJobLock<T> | null>;
+  activateJobLock(
+    jobName: string,
+    jobInterval: number,
+    jobIntervalEndedAt: Date,
+    retryIntervalStartedAt: Date,
+  ): Promise<BaseJobLock<T> | null>;
+  deactivateJobLock(jobName: string, jobId: T): Promise<BaseJobLock<T>>;
+  removeJobLock(jobName: string, jobId: T): Promise<void>;
+}

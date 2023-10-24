@@ -1,13 +1,13 @@
 #!/usr/bin/env bun
-import Cronyx from "../../src";
-import { MongodbJobStore } from "../../src/job-store";
+import Cronyx, { MongodbJobStore } from "../../src";
 
 const jobStore = await MongodbJobStore.connect(Bun.env.MONGO_URI!);
 const cronyx = new Cronyx({ jobStore });
 await cronyx.requestJobExec(
   {
-    jobName: "child-job",
-    jobInterval: "*/30 * * * *",
+    jobName: "parent-job",
+    jobInterval: "0 * * * *",
+    requiredJobNames: ["child-job"],
   },
   async (job) => {
     console.log(job.intervalStartedAt);

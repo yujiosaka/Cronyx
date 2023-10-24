@@ -1,7 +1,63 @@
 import type { Duration } from "date-fns";
 import type Job from "./job";
+import type { JobLockId } from "./job-lock";
 import JobRunner from "./job-runner";
-import type BaseJobStore from "./job-store/base";
+import type BaseJobStore from "./job-store";
+
+/**
+ * @public
+ */
+export type { default as BaseJobLock, JobLockId } from "./job-lock";
+
+/**
+ * @public
+ */
+export type { default as MongodbJobLock } from "./job-lock/mongodb";
+
+/**
+ * @public
+ */
+export type { default as RedisJobLock } from "./job-lock/redis";
+
+/**
+ * @public
+ */
+export type { default as TypeormJobLock } from "./job-lock/typeorm";
+
+/**
+ * @public
+ */
+export type { default as BaseJobStore } from "./job-store";
+
+/**
+ * @public
+ */
+export { default as MongodbJobStore } from "./job-store/mongodb";
+
+/**
+ * @public
+ */
+export { default as RedisJobStore } from "./job-store/redis";
+
+/**
+ * @public
+ */
+export { default as MysqlJobStore } from "./job-store/typeorm/mysql";
+
+/**
+ * @public
+ */
+export { default as PostgresJobStore } from "./job-store/typeorm/postgres";
+
+/**
+ * @public
+ */
+export { default as Job } from "./job";
+
+/**
+ * @public
+ */
+export { CronyxError } from "./error";
 
 /**
  * @public
@@ -17,7 +73,7 @@ export enum Source {
  * @public
  */
 export type CronyxOptions<S extends Source> = {
-  jobStore: BaseJobStore<S>;
+  jobStore: BaseJobStore<JobLockId<S>>;
   timezone?: string;
 };
 
@@ -40,7 +96,7 @@ export type RequestJobOptions =
  * @public
  */
 export default class Cronyx<S extends Source> {
-  #jobStore: BaseJobStore<S>;
+  #jobStore: BaseJobStore<JobLockId<S>>;
   #timezone: string | undefined;
 
   constructor(options: CronyxOptions<S>) {

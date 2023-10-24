@@ -6,12 +6,6 @@
   "module": "dist/index.ts",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
-  "exports": {
-    ".": "./dist/index.js",
-    "./job-store": "./dist/job-store/index.js",
-    "./job-lock": "./dist/job-lock/index.js",
-    "./*": "./dist/*.js"
-  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier **/*.{md,ts,cts,json} -w",

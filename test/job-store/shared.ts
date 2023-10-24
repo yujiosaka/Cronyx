@@ -1,18 +1,18 @@
 import { afterEach, beforeEach, describe, expect, setSystemTime, test } from "bun:test";
 import { addHours, subMilliseconds } from "date-fns";
 import type { Source } from "../../src";
-import type BaseJobLock from "../../src/job-lock/base";
-import type { JobLockId } from "../../src/job-lock/base";
-import type BaseJobStore from "../../src/job-store/base";
+import type BaseJobLock from "../../src/job-lock";
+import type { JobLockId } from "../../src/job-lock";
+import type BaseJobStore from "../../src/job-store";
 
-export function testBehavesLikeJobStore<S extends Source>(getJobStore: () => BaseJobStore<S>) {
+export function testBehavesLikeJobStore<S extends Source>(getJobStore: () => BaseJobStore<JobLockId<S>>) {
   const jobName = "jobName";
   const jobIntervalStartedAt = new Date();
   const jobIntervalEndedAt = addHours(jobIntervalStartedAt, 1);
   const jobInterval = 1000 * 60 * 60; // 1 hour
   const retryInterval = 1000 * 60 * 60 * 2; // 2 hours
 
-  let jobStore: BaseJobStore<S>;
+  let jobStore: BaseJobStore<JobLockId<S>>;
   let retryIntervalStartedAt: Date;
 
   beforeEach(() => {

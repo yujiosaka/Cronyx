@@ -1,8 +1,7 @@
 import { isEqual } from "date-fns";
 import { createClient, RedisClientOptions, WatchError } from "redis";
-import type { Source } from "..";
+import type BaseJobStore from ".";
 import RedisJobLock from "../job-lock/redis";
-import type BaseJobStore from "./base";
 
 const ACTIVE_JOB_LOCK_PREFIX = "joblocks:active:";
 const JOB_LOCK_PREFIX = "joblocks:";
@@ -12,7 +11,7 @@ type RedisClientType = ReturnType<typeof createClient>;
 /**
  * @public
  */
-export default class RedisJobStore implements BaseJobStore<Source.Redis> {
+export default class RedisJobStore implements BaseJobStore<string> {
   #client: RedisClientType;
 
   /**

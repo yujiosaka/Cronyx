@@ -51,9 +51,8 @@ $ npm install cronyx
 Here's how you can schedule an hourly task with Cronyx and manage the job's lifecycle manually:
 
 ```ts
-import Cronyx from "cronyx";
 // MysqlJobStore, PostgresJobStore and RedisJobStore are also available out of the box
-import { MongodbJobStore } from "cronyx/job-store";
+import Cronyx, { MongodbJobStore } from "cronyx";
 
 const jobStore = await MongodbJobStore.connect("mongodb://mongo:27017/db");
 const cronyx = new Cronyx({ jobStore });

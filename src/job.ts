@@ -1,9 +1,9 @@
 import { subMilliseconds } from "date-fns";
 import type { Source } from ".";
 import { CronyxError } from "./error";
-import type BaseJobLock from "./job-lock/base";
-import type { JobLockId } from "./job-lock/base";
-import type BaseJobStore from "./job-store/base";
+import type BaseJobLock from "./job-lock";
+import type { JobLockId } from "./job-lock";
+import type BaseJobStore from "./job-store";
 import { log } from "./util";
 
 /**
@@ -11,14 +11,14 @@ import { log } from "./util";
  */
 export default class Job<S extends Source> {
   #jobName: string;
-  #jobStore: BaseJobStore<S>;
+  #jobStore: BaseJobStore<JobLockId<S>>;
   #jobLock: BaseJobLock<JobLockId<S>> | null;
   #pendingPromise: Promise<void> | null = null;
 
   /**
    * @internal
    */
-  constructor(jobStore: BaseJobStore<S>, jobLock: BaseJobLock<JobLockId<S>>) {
+  constructor(jobStore: BaseJobStore<JobLockId<S>>, jobLock: BaseJobLock<JobLockId<S>>) {
     this.#jobName = jobLock.jobName;
     this.#jobStore = jobStore;
     this.#jobLock = jobLock;

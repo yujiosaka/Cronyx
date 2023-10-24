@@ -1,9 +1,8 @@
 #!/usr/bin/env bun
 import { isEqual } from "date-fns";
 import { v4 } from "uuid";
-import Cronyx from "../../src";
-import { BaseJobLock } from "../../src/job-lock";
-import { BaseJobStore } from "../../src/job-store";
+import Cronyx, { BaseJobLock } from "../../src";
+import type BaseJobStore from "../../src/job-store";
 
 // Create a new cache by extending BaseJobStore interface
 export default class MemoryJobStore implements BaseJobStore<string> {

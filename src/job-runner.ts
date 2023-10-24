@@ -3,10 +3,10 @@ import { differenceInMilliseconds } from "date-fns";
 import type { Source } from ".";
 import { CronyxError } from "./error";
 import Job from "./job";
-import type BaseJobLock from "./job-lock/base";
-import type { JobLockId } from "./job-lock/base";
+import type BaseJobLock from "./job-lock";
+import type { JobLockId } from "./job-lock";
 import MockJobLock from "./job-lock/mock";
-import type BaseJobStore from "./job-store/base";
+import type BaseJobStore from "./job-store";
 import { addInterval, getLastDeactivatedJobIntervalEndedAt, log, subInterval } from "./util";
 
 type JobRunnerOptions = {
@@ -22,7 +22,7 @@ type JobRunnerOptions = {
  * @internal
  */
 export default class JobRunner<S extends Source> {
-  #jobStore: BaseJobStore<S>;
+  #jobStore: BaseJobStore<JobLockId<S>>;
   #timezone: string;
   #jobName: string;
   #jobInterval: Duration | string | number;
@@ -33,7 +33,7 @@ export default class JobRunner<S extends Source> {
   #jobIntervalStartedAt: Date | undefined;
 
   constructor(
-    jobStore: BaseJobStore<S>,
+    jobStore: BaseJobStore<JobLockId<S>>,
     jobName: string,
     jobInterval: Duration | string | number,
     options?: JobRunnerOptions,

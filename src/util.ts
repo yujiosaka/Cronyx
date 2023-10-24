@@ -2,7 +2,7 @@ import { parseExpression } from "cron-parser";
 import { add, addMilliseconds, Duration, sub, subMilliseconds } from "date-fns";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import debug from "debug";
-import type BaseJobLock from "./job-lock/base";
+import type BaseJobLock from "./job-lock";
 
 const DURATION_KEYS = ["years", "months", "weeks", "days", "hours", "minutes", "seconds"];
 

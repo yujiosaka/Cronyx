@@ -1,6 +1,5 @@
 #!/usr/bin/env bun
-import Cronyx from "../../src";
-import { RedisJobStore } from "../../src/job-store";
+import Cronyx, { RedisJobStore } from "../../src";
 
 const jobStore = await RedisJobStore.connect({ url: Bun.env.REDIS_URI });
 const cronyx = new Cronyx({ jobStore });

@@ -1,7 +1,7 @@
 import { v4 } from "uuid";
 import { z } from "zod";
+import type BaseJobLock from ".";
 import type { Optional } from "../util";
-import type BaseJobLock from "./base";
 
 type RedisJobLockCreationAttributes = Optional<
   BaseJobLock<string>,
