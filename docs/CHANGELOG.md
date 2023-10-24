@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/yujiosaka/Cronyx/compare/v1.0.2...v1.0.3) (2023-10-24)
+
+
+### Bug Fixes
+
+* fix bug of dist directory not published ([95558d6](https://github.com/yujiosaka/Cronyx/commit/95558d63c0212438504e93f7c77be21ea83debcf))
+
 ## [1.0.2](https://github.com/yujiosaka/Cronyx/compare/v1.0.1...v1.0.2) (2023-10-24)
 
 
