@@ -13,7 +13,7 @@
     "lint": "eslint **/*.{ts,cts} --quiet",
     "lint:fix": "eslint **/*.{ts,cts} --quiet --fix",
     "prepare": "husky install",
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc -p tsconfig.build.json"
   },
   "repository": {
     "type": "git",
