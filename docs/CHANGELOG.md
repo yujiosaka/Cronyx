@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/yujiosaka/Cronyx/compare/v1.0.4...v1.0.5) (2023-10-24)
+
+
+### Bug Fixes
+
+* fix job-store and job-lock not imported from directory root ([d27d6e2](https://github.com/yujiosaka/Cronyx/commit/d27d6e20bf8e7558957906a8d541adb3e3a00a94))
+
 ## [1.0.4](https://github.com/yujiosaka/Cronyx/compare/v1.0.3...v1.0.4) (2023-10-24)
 
 
