@@ -6,8 +6,18 @@ import type BaseJobStore from "./job-store/base";
 /**
  * @public
  */
-export type CronyxOptions<T> = {
-  jobStore: BaseJobStore<T>;
+export enum Source {
+  Mongodb = "mongodb",
+  Redis = "redis",
+  Mysql = "mysql",
+  Postgres = "Postgres",
+}
+
+/**
+ * @public
+ */
+export type CronyxOptions<S extends Source> = {
+  jobStore: BaseJobStore<S>;
   timezone?: string;
 };
 
@@ -29,16 +39,16 @@ export type RequestJobOptions =
 /**
  * @public
  */
-export default class Cronyx<T> {
-  #jobStore: BaseJobStore<T>;
+export default class Cronyx<S extends Source> {
+  #jobStore: BaseJobStore<S>;
   #timezone: string | undefined;
 
-  constructor(options: CronyxOptions<T>) {
+  constructor(options: CronyxOptions<S>) {
     this.#jobStore = options.jobStore;
     this.#timezone = options.timezone;
   }
 
-  async requestJobExec(options: RequestJobOptions, task: (job: Job<T>) => Promise<void>): Promise<void> {
+  async requestJobExec(options: RequestJobOptions, task: (job: Job<S>) => Promise<void>): Promise<void> {
     const jobRunner = new JobRunner(this.#jobStore, options.jobName, options.jobInterval, {
       timezone: this.#timezone,
       requiredJobNames: options.requiredJobNames,
@@ -50,7 +60,7 @@ export default class Cronyx<T> {
     return await jobRunner.requestJobExec(task);
   }
 
-  async requestJobStart(options: RequestJobOptions): Promise<Job<T> | null> {
+  async requestJobStart(options: RequestJobOptions): Promise<Job<S> | null> {
     const jobRunner = new JobRunner(this.#jobStore, options.jobName, options.jobInterval, {
       timezone: this.#timezone,
       requiredJobNames: options.requiredJobNames,

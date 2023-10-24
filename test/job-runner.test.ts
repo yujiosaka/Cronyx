@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, Mock, mock, spyOn, test } from "bun:test";
 import { addMilliseconds, subMilliseconds } from "date-fns";
+import type { Source } from "../src";
 import Job from "../src/job";
 import RedisJobLock from "../src/job-lock/redis";
 import JobRunner from "../src/job-runner";
@@ -28,7 +29,7 @@ describe("JobRunner", () => {
   const unfulfilledJobLock = { ...fulfilledJobLock, jobName: "unfilfilledJobName", jobIntervalEndedAt };
   const fulfilledActiveJobLock = { ...fulfilledJobLock, jobName: "fulfilledActiveJobName", isActive: true };
 
-  let jobStore: BaseJobStore<string>;
+  let jobStore: BaseJobStore<Source>;
   let failureTask: Mock<() => Promise<void>>;
   let successTask: Mock<() => Promise<void>>;
   let finish: Mock<() => Promise<void>>;

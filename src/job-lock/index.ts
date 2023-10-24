@@ -1,7 +1,7 @@
 /**
  * @public
  */
-export type { default as BaseJobLock } from "./base";
+export type { default as BaseJobLock, JobLockId } from "./base";
 
 /**
  * @public

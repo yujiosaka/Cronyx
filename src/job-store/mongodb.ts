@@ -2,6 +2,7 @@ import { MongoError } from "mongodb";
 import type { MongoClientOptions } from "mongodb";
 import { createConnection } from "mongoose";
 import type { Connection, Model, Types } from "mongoose";
+import type { Source } from "..";
 import type MongodbJobLock from "../job-lock/mongodb";
 import { mongodbJobLockSchema } from "../job-lock/mongodb";
 import type BaseJobStore from "./base";
@@ -9,7 +10,7 @@ import type BaseJobStore from "./base";
 /**
  * @public
  */
-export default class MongodbJobStore implements BaseJobStore<Types.ObjectId> {
+export default class MongodbJobStore implements BaseJobStore<Source.Mongodb> {
   #conn: Connection;
   #model: Model<MongodbJobLock>;
 

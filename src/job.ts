@@ -1,28 +1,30 @@
 import { subMilliseconds } from "date-fns";
+import type { Source } from ".";
 import { CronyxError } from "./error";
 import type BaseJobLock from "./job-lock/base";
+import type { JobLockId } from "./job-lock/base";
 import type BaseJobStore from "./job-store/base";
 import { log } from "./util";
 
 /**
  * @public
  */
-export default class Job<T> {
+export default class Job<S extends Source> {
   #jobName: string;
-  #jobStore: BaseJobStore<T>;
-  #jobLock: BaseJobLock<T> | null;
+  #jobStore: BaseJobStore<S>;
+  #jobLock: BaseJobLock<JobLockId<S>> | null;
   #pendingPromise: Promise<void> | null = null;
 
   /**
    * @internal
    */
-  constructor(jobStore: BaseJobStore<T>, jobLock: BaseJobLock<T>) {
+  constructor(jobStore: BaseJobStore<S>, jobLock: BaseJobLock<JobLockId<S>>) {
     this.#jobName = jobLock.jobName;
     this.#jobStore = jobStore;
     this.#jobLock = jobLock;
   }
 
-  get id(): T | null {
+  get id(): JobLockId<S> | null {
     if (!this.#jobLock || !this.#jobLock.isActive) throw new CronyxError(`Job is not active for ${this.#jobName}`);
 
     return this.#jobLock._id;

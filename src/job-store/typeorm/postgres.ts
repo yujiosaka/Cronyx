@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import type { AuroraPostgresConnectionOptions } from "typeorm/driver/aurora-postgres/AuroraPostgresConnectionOptions.js";
 import type { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions.js";
+import type { BaseJobStore } from "..";
+import type { Source } from "../..";
 import { CronyxError } from "../../error";
 import { TypeormJobLockEntity } from "../../job-lock/typeorm";
 import TypeormJobStore from "./";
@@ -8,7 +10,7 @@ import TypeormJobStore from "./";
 /**
  * @public
  */
-export default class PostgresJobStore extends TypeormJobStore {
+export default class PostgresJobStore extends TypeormJobStore implements BaseJobStore<Source.Postgres> {
   protected uniqueConstraintErrorCode: string = "23505";
 
   static async connect(options: PostgresConnectionOptions | AuroraPostgresConnectionOptions): Promise<TypeormJobStore> {

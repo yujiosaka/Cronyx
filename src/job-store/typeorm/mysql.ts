@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import type { AuroraMysqlConnectionOptions } from "typeorm/driver/aurora-mysql/AuroraMysqlConnectionOptions.js";
 import type { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions.js";
+import type { BaseJobStore } from "..";
+import type { Source } from "../..";
 import { CronyxError } from "../../error";
 import { TypeormJobLockEntity } from "../../job-lock/typeorm";
 import TypeormJobStore from "./";
@@ -8,7 +10,7 @@ import TypeormJobStore from "./";
 /**
  * @public
  */
-export default class MysqlJobStore extends TypeormJobStore {
+export default class MysqlJobStore extends TypeormJobStore implements BaseJobStore<Source.Mysql> {
   protected uniqueConstraintErrorCode: string = "ER_DUP_ENTRY";
 
   static async connect(options: MysqlConnectionOptions | AuroraMysqlConnectionOptions): Promise<TypeormJobStore> {

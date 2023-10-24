@@ -1,5 +1,6 @@
 import type { Repository } from "typeorm";
 import { DataSource } from "typeorm";
+import type { Source } from "../..";
 import { TypeormJobLockEntity } from "../../job-lock/typeorm";
 import type TypeormJobLock from "../../job-lock/typeorm";
 import { hasErrorCode } from "../../util";
@@ -8,7 +9,7 @@ import type BaseJobStore from "../base";
 /**
  * @public
  */
-export default abstract class TypeormJobStore implements BaseJobStore<string> {
+export default abstract class TypeormJobStore implements BaseJobStore<Source.Mysql | Source.Postgres> {
   protected abstract uniqueConstraintErrorCode: string;
   #dataSource: DataSource;
   #repository: Repository<TypeormJobLockEntity>;
