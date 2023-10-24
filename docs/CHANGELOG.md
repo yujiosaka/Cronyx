@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/yujiosaka/Cronyx/compare/v1.0.5...v1.0.6) (2023-10-24)
+
+
+### Bug Fixes
+
+* elaborate exported types ([b31a782](https://github.com/yujiosaka/Cronyx/commit/b31a7827be1ba88bc977b2858f4564913d1a6f60))
+
 ## [1.0.5](https://github.com/yujiosaka/Cronyx/compare/v1.0.4...v1.0.5) (2023-10-24)
 
 
