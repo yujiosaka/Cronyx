@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/yujiosaka/Cronyx/compare/v1.0.6...v2.0.0) (2023-10-24)
+
+
+### Bug Fixes
+
+* change the module export style ([e68074b](https://github.com/yujiosaka/Cronyx/commit/e68074bdb7d3c793cd52a86c0eec95343e7691a7))
+
+
+### BREAKING CHANGES
+
+* all modules will be exported from the main entrypoint
+
 ## [1.0.6](https://github.com/yujiosaka/Cronyx/compare/v1.0.5...v1.0.6) (2023-10-24)
 
 
