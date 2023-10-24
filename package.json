@@ -6,6 +6,10 @@
   "module": "dist/index.ts",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier **/*.{md,ts,cts,json} -w",
