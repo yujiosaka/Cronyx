@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/yujiosaka/Cronyx/compare/v2.2.0...v2.3.0) (2023-10-25)
+
+
+### Features
+
+* distinguish argument error ([279dca2](https://github.com/yujiosaka/Cronyx/commit/279dca27bdd777574d1d932eba4dc4f17a76b502))
+
 # [2.2.0](https://github.com/yujiosaka/Cronyx/compare/v2.1.1...v2.2.0) (2023-10-25)
 
 
