@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import { isEqual } from "date-fns";
 import { v4 } from "uuid";
-import Cronyx, { BaseJobLock, JobLockNotFoundError } from "../../src";
+import Cronyx, { BaseJobLock, CronyxNotFoundError } from "../../src";
 import type BaseJobStore from "../../src/job-store";
 
 // Create a new cache by extending BaseJobStore interface
@@ -67,7 +67,7 @@ export default class MemoryJobStore implements BaseJobStore<string> {
   async deactivateJobLock(jobName: string, jobId: string): Promise<BaseJobLock<string>> {
     const lastJobLock = await this.fetchLastJobLock(jobName);
     if (!lastJobLock || !lastJobLock.isActive || lastJobLock._id !== jobId) {
-      throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
+      throw new CronyxNotFoundError(`Cannot find job lock for ${jobName}`);
     }
 
     const detivatedJobLock = { ...lastJobLock, isActive: false, updatedAt: new Date() };
@@ -79,7 +79,7 @@ export default class MemoryJobStore implements BaseJobStore<string> {
   async removeJobLock(jobName: string, jobId: string): Promise<void> {
     const lastJobLock = await this.fetchLastJobLock(jobName);
     if (!lastJobLock || lastJobLock._id !== jobId) {
-      throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
+      throw new CronyxNotFoundError(`Cannot find job lock for ${jobName}`);
     }
 
     this.#jobLocks[jobName].pop();

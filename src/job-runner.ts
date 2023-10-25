@@ -1,6 +1,6 @@
 import type { Duration } from "date-fns";
 import { differenceInMilliseconds } from "date-fns";
-import { CronyxError } from "./error";
+import { CronyxArgumentError, CronyxError } from "./error";
 import Job from "./job";
 import type BaseJobLock from "./job-lock";
 import MockJobLock from "./job-lock/mock";
@@ -62,7 +62,7 @@ export default class JobRunner<I> {
 
   async requestJobStart(): Promise<Job<I> | null> {
     if (this.#jobIntervalStartedAt) {
-      if (!this.#noLock) throw new CronyxError("Should enable `noLock` when `jobIntervalStartedAt` is passed");
+      if (!this.#noLock) throw new CronyxArgumentError("Should enable `noLock` when `jobIntervalStartedAt` is passed");
 
       const jobIntervalEndedAt = addInterval(this.#jobIntervalStartedAt, this.#jobInterval, this.#timezone);
       const jobInterval = differenceInMilliseconds(jobIntervalEndedAt, this.#jobIntervalStartedAt);

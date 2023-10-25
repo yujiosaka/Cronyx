@@ -21,4 +21,9 @@ export class CronyxError extends Error {
 /**
  * @public
  */
-export class JobLockNotFoundError extends Error {}
+export class CronyxArgumentError extends CronyxError {}
+
+/**
+ * @public
+ */
+export class CronyxNotFoundError extends CronyxError {}
