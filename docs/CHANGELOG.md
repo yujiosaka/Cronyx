@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/yujiosaka/Cronyx/compare/v2.0.0...v2.0.1) (2023-10-25)
+
+
+### Bug Fixes
+
+* use id type directly for job class generics ([00ec519](https://github.com/yujiosaka/Cronyx/commit/00ec519a4648771606cf48b208c9bdcc618d5fc1))
+
 # [2.0.0](https://github.com/yujiosaka/Cronyx/compare/v1.0.6...v2.0.0) (2023-10-24)
 
 
