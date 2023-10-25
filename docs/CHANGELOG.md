@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/yujiosaka/Cronyx/compare/v2.1.1...v2.2.0) (2023-10-25)
+
+
+### Features
+
+* distinguish job lock not found error ([2d72fdf](https://github.com/yujiosaka/Cronyx/commit/2d72fdfe6fc970c4ae9514c8df0d46664a5cce2c))
+
 ## [2.1.1](https://github.com/yujiosaka/Cronyx/compare/v2.1.0...v2.1.1) (2023-10-25)
 
 
