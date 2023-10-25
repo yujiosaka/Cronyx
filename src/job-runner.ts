@@ -68,7 +68,11 @@ export default class JobRunner<I> {
       const jobInterval = differenceInMilliseconds(jobIntervalEndedAt, this.#jobIntervalStartedAt);
       const jobLock = MockJobLock.parse({ jobName: this.#jobName, jobInterval, jobIntervalEndedAt });
 
-      log(`Job from ${this.#jobIntervalStartedAt} to ${jobIntervalEndedAt} is started for ${this.#jobName}`);
+      log(
+        `Job from ${this.#jobIntervalStartedAt.toISOString()} to ${jobIntervalEndedAt.toISOString()} is started for ${
+          this.#jobName
+        }`,
+      );
       return new Job(this.#jobStore, jobLock);
     }
 
