@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, expect, Mock, mock, setSystemTime, test } from "bun:test";
 import { add, sub } from "date-fns";
 import Cronyx from "../../src";
-import type { JobLockId, Source } from "../../src";
+import type { JobLockId } from "../../src";
 import type BaseJobStore from "../../src/job-store";
 
-export function testBehavesLikeCronyx<S extends Source>(getJobStore: () => BaseJobStore<JobLockId<S>>) {
+export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S>>(getJobStore: () => S) {
   const requestedAt = new Date("2023-02-03T15:00:00.000Z");
   const firstJobIntervalStartedAt = sub(requestedAt, { days: 1 });
   const firstJobIntervalEndedAt = requestedAt;
@@ -22,8 +22,8 @@ export function testBehavesLikeCronyx<S extends Source>(getJobStore: () => BaseJ
     jobInterval: "0 0 * * * *", // hourly
   };
 
-  let jobStore: BaseJobStore<JobLockId<S>>;
-  let cronyx: Cronyx<S>;
+  let jobStore: S;
+  let cronyx: Cronyx<S, I>;
   let jobTask: Mock<() => Promise<void>>;
   let requiredJobTask: Mock<() => Promise<void>>;
 
