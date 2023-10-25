@@ -1,4 +1,4 @@
-# Cronyx [![CI/CD](https://github.com/yujiosaka/Cronyx/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/yujiosaka/Cronyx/actions/workflows/ci_cd.yml)
+# Cronyx [![npm version](https://badge.fury.io/js/cronyx.svg)](https://badge.fury.io/js/cronyx) [![CI/CD](https://github.com/yujiosaka/Cronyx/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/yujiosaka/Cronyx/actions/workflows/ci_cd.yml)
 
 ###### [Examples](https://github.com/yujiosaka/Cronyx/blob/main/examples) | [API](https://github.com/yujiosaka/Cronyx/blob/main/docs/API.md) | [Tips](https://github.com/yujiosaka/Cronyx/blob/main/docs/TIPS.md) | [Code of Conduct](https://github.com/yujiosaka/Cronyx/blob/main/docs/CODE_OF_CONDUCT.md) | [Contributing](https://github.com/yujiosaka/Cronyx/blob/main/docs/CONTRIBUTING.md) | [Changelog](https://github.com/yujiosaka/Cronyx/blob/main/docs/CHANGELOG.md)
 
