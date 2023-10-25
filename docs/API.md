@@ -48,6 +48,7 @@ requestJobStart(options: JobStartOptions): Promise<Job>
   - `startBuffer?` (**optional**): [Duration] | [number] - Adds a delay before the job starts.
   - `retryInterval?` (**optional**): [Duration] | [number] - Allows bypassing of an active job lock after a specified period.
   - `requiredJobNames?` (**optional**): [Array]<[string]> - Specifies dependencies using their job names.
+  - `timezone?` (**optional**): [string] - Overrides `timezone` of the constructor argument.
   - `noLock?` (**optional**): [boolean] - Bypasses job locks, letting other processes run the job.
   - `jobIntervalStartedAt?` (**optional**): [Date] - Sets the start interval manually. Use with the `noLock` option.
 

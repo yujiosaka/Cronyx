@@ -38,6 +38,7 @@ export type BaseRequestJobOptions = {
   startBuffer?: Duration | number;
   retryInterval?: Duration | number;
   requiredJobNames?: string[];
+  timezone?: string;
 };
 
 /**
@@ -61,7 +62,7 @@ export default class Cronyx<S extends BaseJobStore<I>, I = JobLockId<S>> {
 
   async requestJobExec(options: RequestJobOptions, task: (job: Job<I>) => Promise<void>): Promise<void> {
     const jobRunner = new JobRunner(this.#jobStore, options.jobName, options.jobInterval, {
-      timezone: this.#timezone,
+      timezone: options.timezone ?? this.#timezone,
       requiredJobNames: options.requiredJobNames,
       startBuffer: options.startBuffer,
       retryInterval: options.retryInterval,
@@ -73,7 +74,7 @@ export default class Cronyx<S extends BaseJobStore<I>, I = JobLockId<S>> {
 
   async requestJobStart(options: RequestJobOptions): Promise<Job<I> | null> {
     const jobRunner = new JobRunner(this.#jobStore, options.jobName, options.jobInterval, {
-      timezone: this.#timezone,
+      timezone: options.timezone ?? this.#timezone,
       requiredJobNames: options.requiredJobNames,
       startBuffer: options.startBuffer,
       retryInterval: options.retryInterval,
