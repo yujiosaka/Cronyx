@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/yujiosaka/Cronyx/compare/v2.0.2...v2.1.0) (2023-10-25)
+
+
+### Features
+
+* add timezone option to request job options ([2be0f51](https://github.com/yujiosaka/Cronyx/commit/2be0f51fa8ce9705b4d2e9632023d74fe644f53f))
+
 ## [2.0.2](https://github.com/yujiosaka/Cronyx/compare/v2.0.1...v2.0.2) (2023-10-25)
 
 
