@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/yujiosaka/Cronyx/compare/v2.3.0...v2.3.1) (2023-10-25)
+
+
+### Bug Fixes
+
+* improve readability of debug logging ([3c920f8](https://github.com/yujiosaka/Cronyx/commit/3c920f8ce3aefb8f3167a8c5ec2b2f5a98e6b553))
+
 # [2.3.0](https://github.com/yujiosaka/Cronyx/compare/v2.2.0...v2.3.0) (2023-10-25)
 
 
