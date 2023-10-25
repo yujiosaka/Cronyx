@@ -10,6 +10,7 @@ export type { default as TypeormJobLock } from "./job-lock/typeorm";
 export type { default as BaseJobStore } from "./job-store";
 export { default as MongodbJobStore } from "./job-store/mongodb";
 export { default as RedisJobStore } from "./job-store/redis";
+export { default as TypeormJobStore } from "./job-store/typeorm";
 export { default as MysqlJobStore } from "./job-store/typeorm/mysql";
 export { default as PostgresJobStore } from "./job-store/typeorm/postgres";
 export { default as Job } from "./job";
