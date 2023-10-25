@@ -1,10 +1,8 @@
 import type { Duration } from "date-fns";
 import { differenceInMilliseconds } from "date-fns";
-import type { Source } from ".";
 import { CronyxError } from "./error";
 import Job from "./job";
 import type BaseJobLock from "./job-lock";
-import type { JobLockId } from "./job-lock";
 import MockJobLock from "./job-lock/mock";
 import type BaseJobStore from "./job-store";
 import { addInterval, getLastDeactivatedJobIntervalEndedAt, log, subInterval } from "./util";
@@ -21,8 +19,8 @@ type JobRunnerOptions = {
 /**
  * @internal
  */
-export default class JobRunner<S extends Source> {
-  #jobStore: BaseJobStore<JobLockId<S>>;
+export default class JobRunner<I> {
+  #jobStore: BaseJobStore<I>;
   #timezone: string;
   #jobName: string;
   #jobInterval: Duration | string | number;
@@ -33,7 +31,7 @@ export default class JobRunner<S extends Source> {
   #jobIntervalStartedAt: Date | undefined;
 
   constructor(
-    jobStore: BaseJobStore<JobLockId<S>>,
+    jobStore: BaseJobStore<I>,
     jobName: string,
     jobInterval: Duration | string | number,
     options?: JobRunnerOptions,
@@ -49,7 +47,7 @@ export default class JobRunner<S extends Source> {
     this.#jobIntervalStartedAt = options?.jobIntervalStartedAt;
   }
 
-  async requestJobExec(task: (job: Job<S>) => Promise<void>): Promise<void> {
+  async requestJobExec(task: (job: Job<I>) => Promise<void>): Promise<void> {
     const job = await this.requestJobStart();
     if (!job) return;
 
@@ -62,7 +60,7 @@ export default class JobRunner<S extends Source> {
     }
   }
 
-  async requestJobStart(): Promise<Job<S> | null> {
+  async requestJobStart(): Promise<Job<I> | null> {
     if (this.#jobIntervalStartedAt) {
       if (!this.#noLock) throw new CronyxError("Should enable `noLock` when `jobIntervalStartedAt` is passed");
 
@@ -99,7 +97,7 @@ export default class JobRunner<S extends Source> {
       return new Job(this.#jobStore, jobLock);
     }
 
-    let jobLock: BaseJobLock<JobLockId<S>> | null;
+    let jobLock: BaseJobLock<I> | null;
     try {
       jobLock = await this.#jobStore.activateJobLock(this.#jobName, jobInterval, jobIntervalEndedAt, retryIntervalStartedAt);
     } catch (error) {
@@ -114,8 +112,8 @@ export default class JobRunner<S extends Source> {
     return new Job(this.#jobStore, jobLock);
   }
 
-  async #ensureLastJobLock(requestedAt: Date): Promise<BaseJobLock<JobLockId<S>>> {
-    let lastJobLock: BaseJobLock<JobLockId<S>> | null;
+  async #ensureLastJobLock(requestedAt: Date): Promise<BaseJobLock<I>> {
+    let lastJobLock: BaseJobLock<I> | null;
     try {
       lastJobLock = await this.#jobStore.fetchLastJobLock(this.#jobName);
     } catch (error) {
@@ -135,7 +133,7 @@ export default class JobRunner<S extends Source> {
 
   async #areRequiredJobsFulfilled(jobIntervalEndedAt: Date): Promise<boolean> {
     for (const requiredJobName of this.#requiredJobNames) {
-      let requiredJobLock: BaseJobLock<JobLockId<S>> | null;
+      let requiredJobLock: BaseJobLock<I> | null;
 
       try {
         requiredJobLock = await this.#jobStore.fetchLastJobLock(requiredJobName);

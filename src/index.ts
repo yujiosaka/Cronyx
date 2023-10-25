@@ -1,13 +1,13 @@
 import type { Duration } from "date-fns";
+import type { Types } from "mongoose";
 import type Job from "./job";
-import type { JobLockId } from "./job-lock";
 import JobRunner from "./job-runner";
 import type BaseJobStore from "./job-store";
 
 /**
  * @public
  */
-export type { default as BaseJobLock, JobLockId } from "./job-lock";
+export type { default as BaseJobLock } from "./job-lock";
 
 /**
  * @public
@@ -72,6 +72,19 @@ export enum Source {
 /**
  * @public
  */
+export type JobLockId<S extends Source> = S extends Source.Mongodb
+  ? Types.ObjectId
+  : S extends Source.Redis
+  ? string
+  : S extends Source.Mysql
+  ? string
+  : S extends Source.Postgres
+  ? string
+  : never;
+
+/**
+ * @public
+ */
 export type CronyxOptions<S extends Source> = {
   jobStore: BaseJobStore<JobLockId<S>>;
   timezone?: string;
@@ -104,7 +117,7 @@ export default class Cronyx<S extends Source> {
     this.#timezone = options.timezone;
   }
 
-  async requestJobExec(options: RequestJobOptions, task: (job: Job<S>) => Promise<void>): Promise<void> {
+  async requestJobExec(options: RequestJobOptions, task: (job: Job<JobLockId<S>>) => Promise<void>): Promise<void> {
     const jobRunner = new JobRunner(this.#jobStore, options.jobName, options.jobInterval, {
       timezone: this.#timezone,
       requiredJobNames: options.requiredJobNames,
@@ -116,7 +129,7 @@ export default class Cronyx<S extends Source> {
     return await jobRunner.requestJobExec(task);
   }
 
-  async requestJobStart(options: RequestJobOptions): Promise<Job<S> | null> {
+  async requestJobStart(options: RequestJobOptions): Promise<Job<JobLockId<S>> | null> {
     const jobRunner = new JobRunner(this.#jobStore, options.jobName, options.jobInterval, {
       timezone: this.#timezone,
       requiredJobNames: options.requiredJobNames,

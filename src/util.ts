@@ -76,7 +76,7 @@ export function subInterval(date: Date, interval: Duration | string | number, ti
 /**
  * @internal
  */
-export function getLastDeactivatedJobIntervalEndedAt<T>(lastJobLock: BaseJobLock<T>) {
+export function getLastDeactivatedJobIntervalEndedAt<I>(lastJobLock: BaseJobLock<I>) {
   return lastJobLock.isActive
     ? subMilliseconds(lastJobLock.jobIntervalEndedAt, lastJobLock.jobInterval)
     : lastJobLock.jobIntervalEndedAt;
