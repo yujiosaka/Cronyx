@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/yujiosaka/Cronyx/compare/v2.0.1...v2.0.2) (2023-10-25)
+
+
+### Bug Fixes
+
+* fix a bug of id type not inferred ([5d2d75a](https://github.com/yujiosaka/Cronyx/commit/5d2d75a8087b898cc8f29c60c8cbfb3a55672c26))
+
 ## [2.0.1](https://github.com/yujiosaka/Cronyx/compare/v2.0.0...v2.0.1) (2023-10-25)
 
 
