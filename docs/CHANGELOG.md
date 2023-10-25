@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/yujiosaka/Cronyx/compare/v2.1.0...v2.1.1) (2023-10-25)
+
+
+### Bug Fixes
+
+* prevent same job lock to be updated multiple times ([07247a4](https://github.com/yujiosaka/Cronyx/commit/07247a46ebd7a19ae11c6d5af8445d159150d2c6))
+
 # [2.1.0](https://github.com/yujiosaka/Cronyx/compare/v2.0.2...v2.1.0) (2023-10-25)
 
 
