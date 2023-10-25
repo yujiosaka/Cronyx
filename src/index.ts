@@ -14,7 +14,7 @@ export { default as TypeormJobStore } from "./job-store/typeorm";
 export { default as MysqlJobStore } from "./job-store/typeorm/mysql";
 export { default as PostgresJobStore } from "./job-store/typeorm/postgres";
 export { default as Job } from "./job";
-export { CronyxError } from "./error";
+export { CronyxError, JobLockNotFoundError } from "./error";
 
 /**
  * @public

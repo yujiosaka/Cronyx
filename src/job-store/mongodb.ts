@@ -3,6 +3,7 @@ import type { MongoClientOptions } from "mongodb";
 import { createConnection } from "mongoose";
 import type { Connection, Model, Types } from "mongoose";
 import type BaseJobStore from ".";
+import { JobLockNotFoundError } from "../error";
 import type MongodbJobLock from "../job-lock/mongodb";
 import { mongodbJobLockSchema } from "../job-lock/mongodb";
 
@@ -61,13 +62,13 @@ export default class MongodbJobStore implements BaseJobStore<Types.ObjectId> {
       { isActive: false, updatedAt: new Date() },
       { new: true },
     );
-    if (!deactivatedJobLock) throw new Error(`Cannot find job lock for ${jobName}`);
+    if (!deactivatedJobLock) throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
 
     return deactivatedJobLock;
   }
 
   async removeJobLock(jobName: string, jobId: Types.ObjectId): Promise<void> {
     const result = await this.#model.deleteOne({ _id: jobId, jobName, isActive: true });
-    if (result.deletedCount === 0) throw new Error(`Cannot find job lock for ${jobName}`);
+    if (result.deletedCount === 0) throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
   }
 }

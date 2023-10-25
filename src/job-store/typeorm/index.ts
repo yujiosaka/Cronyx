@@ -1,6 +1,7 @@
 import type { Repository } from "typeorm";
 import { DataSource } from "typeorm";
 import type BaseJobStore from "..";
+import { JobLockNotFoundError } from "../../error";
 import { TypeormJobLockEntity } from "../../job-lock/typeorm";
 import type TypeormJobLock from "../../job-lock/typeorm";
 import { hasErrorCode } from "../../util";
@@ -74,13 +75,13 @@ export default abstract class TypeormJobStore implements BaseJobStore<string> {
 
   async deactivateJobLock(jobName: string, jobId: string): Promise<TypeormJobLock> {
     const deactivatedJobLock = await this.#repository.findOne({ where: { _id: jobId, jobName, isActive: true } });
-    if (!deactivatedJobLock) throw new Error(`Cannot find job lock for ${jobName}`);
+    if (!deactivatedJobLock) throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
 
     return await this.#repository.save({ ...deactivatedJobLock, isActive: false, updatedAt: new Date() });
   }
 
   async removeJobLock(jobName: string, jobId: string): Promise<void> {
     const result = await this.#repository.delete({ _id: jobId, jobName, isActive: true });
-    if (result.affected === 0) throw new Error(`Cannot find job lock for ${jobName}`);
+    if (result.affected === 0) throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
   }
 }

@@ -1,6 +1,7 @@
 import { isEqual } from "date-fns";
 import { createClient, RedisClientOptions, WatchError } from "redis";
 import type BaseJobStore from ".";
+import { JobLockNotFoundError } from "../error";
 import RedisJobLock from "../job-lock/redis";
 
 const ACTIVE_JOB_LOCK_PREFIX = "joblocks:active:";
@@ -100,7 +101,7 @@ export default class RedisJobStore implements BaseJobStore<string> {
   async deactivateJobLock(jobName: string, jobId: string): Promise<RedisJobLock> {
     const activeJobLock = await this.#getActiveJobLock(jobName);
     if (!activeJobLock || activeJobLock._id !== jobId) {
-      throw new Error(`Cannot find job lock for ${jobName}`);
+      throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
     }
 
     const detivatedJobLock = { ...activeJobLock, isActive: false, updatedAt: new Date() };
@@ -116,7 +117,7 @@ export default class RedisJobStore implements BaseJobStore<string> {
   async removeJobLock(jobName: string, jobId: string): Promise<void> {
     const activeJobLock = await this.#getActiveJobLock(jobName);
     if (!activeJobLock || activeJobLock._id !== jobId) {
-      throw new Error(`Cannot find job lock for ${jobName}`);
+      throw new JobLockNotFoundError(`Cannot find job lock for ${jobName}`);
     }
 
     await this.#client.del(`${ACTIVE_JOB_LOCK_PREFIX}${jobName}`);

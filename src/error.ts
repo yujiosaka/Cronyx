@@ -17,3 +17,8 @@ export class CronyxError extends Error {
     return this.constructor.name;
   }
 }
+
+/**
+ * @public
+ */
+export class JobLockNotFoundError extends Error {}
