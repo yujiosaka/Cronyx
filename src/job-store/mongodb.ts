@@ -57,7 +57,7 @@ export default class MongodbJobStore implements BaseJobStore<Types.ObjectId> {
 
   async deactivateJobLock(jobName: string, jobId: Types.ObjectId): Promise<MongodbJobLock> {
     const deactivatedJobLock = await this.#model.findOneAndUpdate(
-      { _id: jobId },
+      { _id: jobId, jobName, isActive: true },
       { isActive: false, updatedAt: new Date() },
       { new: true },
     );
@@ -67,7 +67,7 @@ export default class MongodbJobStore implements BaseJobStore<Types.ObjectId> {
   }
 
   async removeJobLock(jobName: string, jobId: Types.ObjectId): Promise<void> {
-    const result = await this.#model.deleteOne({ _id: jobId });
+    const result = await this.#model.deleteOne({ _id: jobId, jobName, isActive: true });
     if (result.deletedCount === 0) throw new Error(`Cannot find job lock for ${jobName}`);
   }
 }

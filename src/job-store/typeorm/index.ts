@@ -73,14 +73,14 @@ export default abstract class TypeormJobStore implements BaseJobStore<string> {
   }
 
   async deactivateJobLock(jobName: string, jobId: string): Promise<TypeormJobLock> {
-    const deactivatedJobLock = await this.#repository.preload({ _id: jobId, isActive: false, updatedAt: new Date() });
+    const deactivatedJobLock = await this.#repository.findOne({ where: { _id: jobId, jobName, isActive: true } });
     if (!deactivatedJobLock) throw new Error(`Cannot find job lock for ${jobName}`);
 
-    return await this.#repository.save(deactivatedJobLock);
+    return await this.#repository.save({ ...deactivatedJobLock, isActive: false, updatedAt: new Date() });
   }
 
   async removeJobLock(jobName: string, jobId: string): Promise<void> {
-    const result = await this.#repository.delete({ _id: jobId });
+    const result = await this.#repository.delete({ _id: jobId, jobName, isActive: true });
     if (result.affected === 0) throw new Error(`Cannot find job lock for ${jobName}`);
   }
 }
