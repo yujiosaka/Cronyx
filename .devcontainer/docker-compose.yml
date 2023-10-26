@@ -8,8 +8,9 @@ services:
       - .:/app
       - node-modules:/app/node_modules
     environment:
-      - MONGO_URI=mongodb://mongo:27017/test
-      - MYSQL_URI=mysql://root:password@mysql:3306/test
-      - POSTGRES_URI=postgres://postgres:postgres@postgres:5432/postgres
-      - REDIS_URI=redis://redis:6379
+      MONGO_URI: mongodb://mongo:27017/test
+      MYSQL_URI: mysql://root:password@mysql:3306/test
+      POSTGRES_URI: postgres://postgres:postgres@postgres:5432/postgres
+      REDIS_URI: redis://redis:6379
+      DEBUG: cronyx
     command: sleep infinity

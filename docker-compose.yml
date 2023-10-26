@@ -8,10 +8,11 @@ services:
       - .:/app
       - node-modules:/app/node_modules
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/test
-      - REDIS_URI=redis://redis:6379
-      - MYSQL_URI=mysql://root:password@mysql:3306/test
-      - POSTGRES_URI=postgres://postgres:postgres@postgres:5432/postgres
+      MONGO_URI: mongodb://mongodb:27017/test
+      REDIS_URI: redis://redis:6379
+      MYSQL_URI: mysql://root:password@mysql:3306/test
+      POSTGRES_URI: postgres://postgres:postgres@postgres:5432/postgres
+      DEBUG: cronyx
     command: bun --watch test
     restart: always
     depends_on:
