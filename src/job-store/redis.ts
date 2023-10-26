@@ -107,8 +107,8 @@ export default class RedisJobStore implements BaseJobStore<string> {
     const detivatedJobLock = { ...activeJobLock, isActive: false, updatedAt: new Date() };
     await this.#client
       .multi()
-      .set(`${ACTIVE_JOB_LOCK_PREFIX}${jobName}`, JSON.stringify(detivatedJobLock))
-      .del(`${JOB_LOCK_PREFIX}${jobName}`)
+      .set(`${JOB_LOCK_PREFIX}${jobName}`, JSON.stringify(detivatedJobLock))
+      .del(`${ACTIVE_JOB_LOCK_PREFIX}${jobName}`)
       .exec();
 
     return detivatedJobLock;
