@@ -8,6 +8,8 @@ export type { default as MongodbJobLock } from "./job-lock/mongodb";
 export type { default as RedisJobLock } from "./job-lock/redis";
 export type { default as TypeormJobLock } from "./job-lock/typeorm";
 export type { default as BaseJobStore } from "./job-store";
+export { mongodbJobLockSchema } from "./job-lock/mongodb";
+export { TypeormJobLockEntity } from "./job-lock/typeorm";
 export { default as MongodbJobStore } from "./job-store/mongodb";
 export { default as RedisJobStore } from "./job-store/redis";
 export { default as TypeormJobStore } from "./job-store/typeorm";
