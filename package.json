@@ -1,6 +1,6 @@
 {
   "name": "cronyx",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Script-based task scheduler with scalable architecture, and integrated dependency management.",
   "type": "module",
   "module": "dist/index.ts",

@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/yujiosaka/Cronyx/compare/v2.3.1...v2.4.0) (2023-10-26)
+
+
+### Features
+
+* export mongodb schema and typeorm entity ([5bfda73](https://github.com/yujiosaka/Cronyx/commit/5bfda73828aa574b579d3d3dce8bcb61edd9f310))
+
 ## [2.3.1](https://github.com/yujiosaka/Cronyx/compare/v2.3.0...v2.3.1) (2023-10-25)
 
 
