@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe } from "bun:test";
+import { afterAll, afterEach, beforeAll, describe } from "bun:test";
 import type { Connection, Model } from "mongoose";
 import { createConnection } from "mongoose";
 import type MongodbJobLock from "../../src/job-lock/mongodb";
@@ -15,15 +15,13 @@ describe("integration tests", () => {
     beforeAll(async () => {
       conn = createConnection(Bun.env.MONGO_URI!);
       await waitUntil(() => conn.asPromise());
+
+      jobStore = new MongodbJobStore(conn);
+      model = conn.models.JobLock;
     });
 
     afterAll(async () => {
       await jobStore.close();
-    });
-
-    beforeEach(() => {
-      jobStore = new MongodbJobStore(conn);
-      model = conn.models.JobLock;
     });
 
     afterEach(async () => {

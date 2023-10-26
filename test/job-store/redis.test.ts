@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe } from "bun:test";
+import { afterAll, afterEach, beforeAll, describe } from "bun:test";
 import { createClient } from "redis";
 import RedisJobStore from "../../src/job-store/redis";
 import { waitUntil } from "../helper";
@@ -13,14 +13,12 @@ describe("RedisJobStore", () => {
   beforeAll(async () => {
     client = createClient({ url: Bun.env.REDIS_URI });
     await waitUntil(() => client.connect());
+
+    jobStore = new RedisJobStore(client);
   });
 
   afterAll(async () => {
     await jobStore.close();
-  });
-
-  beforeEach(() => {
-    jobStore = new RedisJobStore(client);
   });
 
   afterEach(async () => {

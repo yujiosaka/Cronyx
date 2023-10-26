@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe } from "bun:test";
+import { afterAll, afterEach, beforeAll, describe } from "bun:test";
 import { DataSource } from "typeorm";
 import type { Repository } from "typeorm";
 import type TypeormJobLock from "../../src/job-lock/typeorm";
@@ -35,15 +35,13 @@ describe.each([
 
     beforeAll(async () => {
       await waitUntil(() => dataSource.initialize());
+
+      jobStore = new JobStore(dataSource);
+      repository = dataSource.getRepository<TypeormJobLock>(TypeormJobLockEntity);
     });
 
     afterAll(async () => {
       await jobStore.close();
-    });
-
-    beforeEach(() => {
-      jobStore = new JobStore(dataSource);
-      repository = dataSource.getRepository<TypeormJobLock>(TypeormJobLockEntity);
     });
 
     afterEach(async () => {

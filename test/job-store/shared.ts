@@ -15,6 +15,9 @@ export function testBehavesLikeJobStore<I>(getJobStore: () => BaseJobStore<I>) {
 
   beforeEach(() => {
     jobStore = getJobStore();
+  });
+
+  beforeEach(() => {
     retryIntervalStartedAt = subMilliseconds(new Date(), retryInterval);
   });
 

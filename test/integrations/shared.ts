@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, expect, Mock, mock, setSystemTime, test } from "bun:test";
+import { afterEach, beforeAll, beforeEach, expect, Mock, mock, setSystemTime, test } from "bun:test";
 import { add, sub } from "date-fns";
 import Cronyx from "../../src";
 import type { JobLockId } from "../../src";
@@ -27,9 +27,12 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
   let jobTask: Mock<() => Promise<void>>;
   let requiredJobTask: Mock<() => Promise<void>>;
 
-  beforeEach(() => {
+  beforeAll(() => {
     jobStore = getJobStore();
     cronyx = new Cronyx({ jobStore, timezone });
+  });
+
+  beforeEach(() => {
     jobTask = mock(() => Promise.resolve());
     requiredJobTask = mock(() => Promise.resolve());
     setSystemTime(requestedAt);
