@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/yujiosaka/Cronyx/compare/v2.4.0...v2.4.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* fix a bug of job lock not deactivated for redis ([acf9151](https://github.com/yujiosaka/Cronyx/commit/acf91512d120bf3c4d8891e2ab6620647729e602))
+
 # [2.4.0](https://github.com/yujiosaka/Cronyx/compare/v2.3.1...v2.4.0) (2023-10-26)
 
 
