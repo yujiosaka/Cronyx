@@ -150,11 +150,37 @@ See [here](https://github.com/yujiosaka/Cronyx/blob/main/examples) for the full 
 docker compose run test ./examples/basic/manual-job-management.ts
 ```
 
-### API reference
+## Development
+
+Using Visual Studio Code and the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension, you can simplify the development environment setup process. The extension allows you to develop inside a Docker container and automatically sets up the development environment for you.
+
+1. Install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in Visual Studio Code.
+
+2. Clone the repository:
+
+```sh
+git clone https://github.com/yujiosaka/Cronyx.git
+```
+
+3. Open the cloned repository in Visual Studio Code.
+
+4. When prompted by Visual Studio Code, click "Reopen in Container" to open the project inside the Docker container.
+
+5. The extension will build the Docker container and set up the development environment for you. This may take a few minutes.
+
+6. Build and run the Docker container with Docker Compose:
+
+```sh
+$ docker-compose up --build
+```
+
+This will start testing in watch mode.
+
+## API reference
 
 See [here](https://github.com/yujiosaka/Cronyx/blob/main/docs/API.md) for the API reference.
 
-### Debugging tips
+## Debugging tips
 
 See [here](https://github.com/yujiosaka/Cronyx/blob/main/docs/TIPS.md) for the debugging tips.
 
