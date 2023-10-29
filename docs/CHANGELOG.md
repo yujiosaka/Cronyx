@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/yujiosaka/Cronyx/compare/v3.0.0...v3.0.1) (2023-10-29)
+
+
+### Bug Fixes
+
+* use mongoose options for mongodb job store ([7db82e3](https://github.com/yujiosaka/Cronyx/commit/7db82e3d9a62c29937e868307b43221cae2b8765))
+
 # [3.0.0](https://github.com/yujiosaka/Cronyx/compare/v2.4.1...v3.0.0) (2023-10-29)
 
 
