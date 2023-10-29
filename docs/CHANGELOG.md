@@ -1,3 +1,17 @@
+# [3.0.0](https://github.com/yujiosaka/Cronyx/compare/v2.4.1...v3.0.0) (2023-10-29)
+
+
+### Features
+
+* add more attributes to job ([75b97b3](https://github.com/yujiosaka/Cronyx/commit/75b97b3b70e3fa513fdbc18065d59a02071618f5))
+* allow synchronizing job stores manually ([5b7b26b](https://github.com/yujiosaka/Cronyx/commit/5b7b26bec151d0972a03d8f940f17c8d54a5166e))
+* lower minimum peer dependency version ([c2edc7f](https://github.com/yujiosaka/Cronyx/commit/c2edc7f8e1bca7ba94f0c0411aa293c45ee4a6ef))
+
+
+### BREAKING CHANGES
+
+* synchronize won't be running automatically
+
 ## [2.4.1](https://github.com/yujiosaka/Cronyx/compare/v2.4.0...v2.4.1) (2023-10-26)
 
 
