@@ -20,6 +20,7 @@
     "url": "git+https://github.com/yujiosaka/Cronyx.git"
   },
   "keywords": [
+    "bun",
     "cron",
     "crontab",
     "cronjob",
@@ -27,7 +28,9 @@
     "job-scheduler",
     "task-scheduler",
     "mongodb",
-    "bun"
+    "mysql",
+    "postgres",
+    "redis"
   ],
   "author": "Yuji Isobe",
   "license": "MIT",
