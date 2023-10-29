@@ -138,7 +138,7 @@ await cronyx.requestJobExec(
 );
 ```
 
-## Examples
+## 📃 Examples
 
 See [here](https://github.com/yujiosaka/Cronyx/blob/main/examples) for the full examples list. The examples can be run from the root directory as follows:
 
@@ -150,7 +150,7 @@ See [here](https://github.com/yujiosaka/Cronyx/blob/main/examples) for the full 
 docker compose run test ./examples/basic/manual-job-management.ts
 ```
 
-## Development
+## 💻 Development
 
 Using Visual Studio Code and the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension, you can simplify the development environment setup process. The extension allows you to develop inside a Docker container and automatically sets up the development environment for you.
 
@@ -176,18 +176,18 @@ $ docker-compose up --build
 
 This will start testing in watch mode.
 
-## API reference
+## 🧑‍💻️ API reference
 
 See [here](https://github.com/yujiosaka/Cronyx/blob/main/docs/API.md) for the API reference.
 
-## Debugging tips
+## 🐞 Debugging tips
 
 See [here](https://github.com/yujiosaka/Cronyx/blob/main/docs/TIPS.md) for the debugging tips.
 
-## License
+## 💳 License
 
 This project is licensed under the MIT License. See [LICENSE](https://github.com/yujiosaka/Cronyx/blob/main/LICENSE) for details.
 
-## Thanks
+## 🙏 Thanks
 
 The [idea of using MongoDB's atomic operation to elegantly ensuring job lock](https://github.com/yujiosaka/Cronyx/blob/main/src/job-store/mongodb.ts) is borrowed by [@crumbjp](https://github.com/crumbjp).
