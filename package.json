@@ -65,19 +65,19 @@
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
-    "mongoose": "^7.6.1",
+    "mongoose": "^7.4.0",
     "mysql": "^2.18.1",
     "pg": "^8.11.3",
     "prettier": "^3.0.3",
-    "redis": "^4.6.10",
+    "redis": "^4.1.0",
     "semantic-release": "^22.0.5",
-    "typeorm": "^0.3.17",
+    "typeorm": "^0.3.0",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "mongoose": "^7.6.1",
-    "redis": "^4.6.10",
-    "typeorm": "^0.3.17"
+    "mongoose": "^7.4.0",
+    "redis": "^4.1.0",
+    "typeorm": "^0.3.0"
   },
   "lint-staged": {
     "**/*.{ts,cts}": [
