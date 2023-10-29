@@ -45,6 +45,10 @@ describe.each([[false], [true]])("Job", (noLock) => {
       expect(job.interval).toEqual(jobInterval);
     });
 
+    test("gets a name", () => {
+      expect(job.name).toEqual(jobName);
+    });
+
     test("gets a interval started date", () => {
       const jobIntervalStartedAt = subMilliseconds(activatedJobLock.jobIntervalEndedAt, activatedJobLock.jobInterval);
       expect(job.intervalStartedAt).toEqual(jobIntervalStartedAt);
@@ -52,6 +56,18 @@ describe.each([[false], [true]])("Job", (noLock) => {
 
     test("gets a interval ended date", () => {
       expect(job.intervalEndedAt).toEqual(activatedJobLock.jobIntervalEndedAt);
+    });
+
+    test("gets a active status", () => {
+      expect(job.isActive).toEqual(true);
+    });
+
+    test("gets a created date", () => {
+      expect(job.createdAt).toEqual(activatedJobLock.createdAt);
+    });
+
+    test("gets a updated date", () => {
+      expect(job.updatedAt).toEqual(activatedJobLock.updatedAt);
     });
 
     if (!noLock) {
@@ -81,19 +97,35 @@ describe.each([[false], [true]])("Job", (noLock) => {
         expect(() => job.interval).toThrow("Job is not active for jobName");
       });
 
-      test("fails to get the finished interval started date", () => {
+      test("fails to get the name", () => {
+        expect(() => job.name).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to get the interval started date", () => {
         expect(() => job.intervalStartedAt).toThrow("Job is not active for jobName");
       });
 
-      test("fails to get the finished interval ended date", () => {
+      test("fails to get the interval ended date", () => {
         expect(() => job.intervalEndedAt).toThrow("Job is not active for jobName");
       });
 
-      test("fails to finishe the finished job", async () => {
+      test("fails to get the active status", () => {
+        expect(() => job.isActive).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to get the created date", () => {
+        expect(() => job.createdAt).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to get the updated date", () => {
+        expect(() => job.updatedAt).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to finishe the job", async () => {
         await expect(job.finish()).rejects.toMatchObject({ message: "Job is not active for jobName" });
       });
 
-      test("fails to interrupt the finished job", async () => {
+      test("fails to interrupt the job", async () => {
         await expect(job.interrupt()).rejects.toMatchObject({ message: "Job is not active for jobName" });
       });
     });
@@ -111,19 +143,35 @@ describe.each([[false], [true]])("Job", (noLock) => {
         expect(() => job.interval).toThrow("Job is not active for jobName");
       });
 
-      test("fails to get the interrupted interval started date", () => {
+      test("fails to get the name", () => {
+        expect(() => job.name).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to get the interval started date", () => {
         expect(() => job.intervalStartedAt).toThrow("Job is not active for jobName");
       });
 
-      test("fails to get the interrupted interval ended date", () => {
+      test("fails to get the interval ended date", () => {
         expect(() => job.intervalEndedAt).toThrow("Job is not active for jobName");
       });
 
-      test("fails to finishe the interrupted job", async () => {
+      test("fails to get the active status", () => {
+        expect(() => job.isActive).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to get the created date", () => {
+        expect(() => job.createdAt).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to get the updated date", () => {
+        expect(() => job.updatedAt).toThrow("Job is not active for jobName");
+      });
+
+      test("fails to finishe the job", async () => {
         await expect(job.finish()).rejects.toMatchObject({ message: "Job is not active for jobName" });
       });
 
-      test("fails to interrupt the interrupted job", async () => {
+      test("fails to interrupt the job", async () => {
         await expect(job.interrupt()).rejects.toMatchObject({ message: "Job is not active for jobName" });
       });
     });

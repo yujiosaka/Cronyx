@@ -69,8 +69,13 @@ describe("JobRunner", () => {
       const runner = new JobRunner(jobStore, jobName, jobInterval);
       const job = await runner.requestJobStart();
 
+      expect(job?.id).not.toBe(null);
+      expect(job?.name).toBe(jobName);
+      expect(job?.interval).toBe(jobInterval);
       expect(job?.intervalStartedAt.getTime()).toBe(jobIntervalStartedAt.getTime());
       expect(job?.intervalEndedAt.getTime()).toBe(jobIntervalEndedAt.getTime());
+      expect(job?.createdAt).toBeDate();
+      expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
       expect(jobStore.activateJobLock).toHaveBeenCalled();
     });
@@ -81,8 +86,13 @@ describe("JobRunner", () => {
       const runner = new JobRunner(jobStore, jobName, jobInterval);
       const job = await runner.requestJobStart();
 
+      expect(job?.id).not.toBe(null);
+      expect(job?.name).toBe(jobName);
+      expect(job?.interval).toBe(jobInterval);
       expect(job?.intervalStartedAt.getTime()).toBe(jobIntervalStartedAt.getTime());
       expect(job?.intervalEndedAt.getTime()).toBe(jobIntervalEndedAt.getTime());
+      expect(job?.createdAt).toBeDate();
+      expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
       expect(jobStore.activateJobLock).toHaveBeenCalled();
     });
@@ -102,8 +112,13 @@ describe("JobRunner", () => {
       const runner = new JobRunner(jobStore, jobName, jobInterval, { requiredJobNames: ["fulfilledJobName"] });
       const job = await runner.requestJobStart();
 
+      expect(job?.id).not.toBe(null);
+      expect(job?.name).toBe(jobName);
+      expect(job?.interval).toBe(jobInterval);
       expect(job?.intervalStartedAt.getTime()).toBe(jobIntervalStartedAt.getTime());
       expect(job?.intervalEndedAt.getTime()).toBe(jobIntervalEndedAt.getTime());
+      expect(job?.createdAt).toBeDate();
+      expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(2);
       expect(jobStore.activateJobLock).toHaveBeenCalled();
     });
@@ -145,8 +160,13 @@ describe("JobRunner", () => {
       const runner = new JobRunner(jobStore, jobName, jobInterval, { retryInterval: 0 });
       const job = await runner.requestJobStart();
 
+      expect(job?.id).not.toBe(null);
+      expect(job?.name).toBe(jobName);
+      expect(job?.interval).toBe(jobInterval);
       expect(job?.intervalStartedAt.getTime()).toBe(jobIntervalStartedAt.getTime());
       expect(job?.intervalEndedAt.getTime()).toBe(jobIntervalEndedAt.getTime());
+      expect(job?.createdAt).toBeDate();
+      expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
       expect(jobStore.activateJobLock).toHaveBeenCalled();
     });
@@ -155,8 +175,13 @@ describe("JobRunner", () => {
       const runner = new JobRunner(jobStore, jobName, jobInterval, { noLock: true });
       const job = await runner.requestJobStart();
 
+      expect(job?.id).toBe(null);
+      expect(job?.name).toBe(jobName);
+      expect(job?.interval).toBe(jobInterval);
       expect(job?.intervalStartedAt.getTime()).toBe(jobIntervalStartedAt.getTime());
       expect(job?.intervalEndedAt.getTime()).toBe(jobIntervalEndedAt.getTime());
+      expect(job?.createdAt).toBeDate();
+      expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
       expect(jobStore.activateJobLock).not.toHaveBeenCalled();
     });
@@ -164,8 +189,14 @@ describe("JobRunner", () => {
     test("runs job with no lock and job interval starting date", async () => {
       const runner = new JobRunner(jobStore, jobName, jobInterval, { noLock: true, jobIntervalStartedAt });
       const job = await runner.requestJobStart();
+
+      expect(job?.id).toBe(null);
+      expect(job?.name).toBe(jobName);
+      expect(job?.interval).toBe(jobInterval);
       expect(job?.intervalStartedAt.getTime()).toBe(jobIntervalStartedAt.getTime());
       expect(job?.intervalEndedAt.getTime()).toBe(jobIntervalEndedAt.getTime());
+      expect(job?.createdAt).toBeDate();
+      expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).not.toHaveBeenCalledTimes(1);
       expect(jobStore.activateJobLock).not.toHaveBeenCalled();
     });

@@ -11,8 +11,9 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
   const secondJobIntervalStartedAt = requestedAt;
   const secondJobIntervalEndedAt = add(requestedAt, { days: 1 });
   const timezone = "Asia/Tokyo";
+  const jobName = "jobName";
   const jobOptions = {
-    jobName: "jobName",
+    jobName,
     jobInterval: "0 0 0 * * *", // daily
     startBuffer: { minutes: 30 },
     retryInterval: { days: 1 },
@@ -46,9 +47,13 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
     // first job
     const firstJob = await cronyx.requestJobStart(jobOptions);
     expect(firstJob?.id).not.toBe(null);
+    expect(firstJob?.name).toBe(jobName);
     expect(firstJob?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(firstJob?.intervalStartedAt.getTime()).toBe(firstJobIntervalStartedAt.getTime());
     expect(firstJob?.intervalEndedAt.getTime()).toBe(firstJobIntervalEndedAt.getTime());
+    expect(firstJob?.isActive).toBe(true);
+    expect(firstJob?.createdAt).toBeDate();
+    expect(firstJob?.updatedAt).toBeDate();
     await firstJob!.finish();
 
     setSystemTime(add(requestedAt, { days: 1 }));
@@ -62,9 +67,13 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
     // second job after start buffer
     const secondJobAfterStartBuffer = await cronyx.requestJobStart(jobOptions);
     expect(secondJobAfterStartBuffer?.id).not.toBe(null);
+    expect(secondJobAfterStartBuffer?.name).toBe(jobName);
     expect(secondJobAfterStartBuffer?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(secondJobAfterStartBuffer?.intervalStartedAt.getTime()).toBe(secondJobIntervalStartedAt.getTime());
     expect(secondJobAfterStartBuffer?.intervalEndedAt.getTime()).toBe(secondJobIntervalEndedAt.getTime());
+    expect(secondJobAfterStartBuffer?.isActive).toBe(true);
+    expect(secondJobAfterStartBuffer?.createdAt).toBeDate();
+    expect(secondJobAfterStartBuffer?.updatedAt).toBeDate();
     await secondJobAfterStartBuffer!.finish();
   });
 
@@ -72,17 +81,25 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
     // first job with interruption
     const firstJobWithInterruption = await cronyx.requestJobStart(jobOptions);
     expect(firstJobWithInterruption?.id).not.toBe(null);
+    expect(firstJobWithInterruption?.name).toBe(jobName);
     expect(firstJobWithInterruption?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(firstJobWithInterruption?.intervalStartedAt.getTime()).toBe(firstJobIntervalStartedAt.getTime());
     expect(firstJobWithInterruption?.intervalEndedAt.getTime()).toBe(firstJobIntervalEndedAt.getTime());
+    expect(firstJobWithInterruption?.isActive).toBe(true);
+    expect(firstJobWithInterruption?.createdAt).toBeDate();
+    expect(firstJobWithInterruption?.updatedAt).toBeDate();
     await firstJobWithInterruption!.interrupt();
 
     // first job
     const firstJob = await cronyx.requestJobStart(jobOptions);
     expect(firstJob?.id).not.toBe(null);
+    expect(firstJob?.name).toBe(jobName);
     expect(firstJob?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(firstJob?.intervalStartedAt.getTime()).toBe(firstJobIntervalStartedAt.getTime());
     expect(firstJob?.intervalEndedAt.getTime()).toBe(firstJobIntervalEndedAt.getTime());
+    expect(firstJob?.isActive).toBe(true);
+    expect(firstJob?.createdAt).toBeDate();
+    expect(firstJob?.updatedAt).toBeDate();
     await firstJob!.finish();
   });
 
@@ -90,9 +107,13 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
     // first job without finish
     const firstJobWithoutFinish = await cronyx.requestJobStart(jobOptions);
     expect(firstJobWithoutFinish?.id).not.toBe(null);
+    expect(firstJobWithoutFinish?.name).toBe(jobName);
     expect(firstJobWithoutFinish?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(firstJobWithoutFinish?.intervalStartedAt.getTime()).toBe(firstJobIntervalStartedAt.getTime());
     expect(firstJobWithoutFinish?.intervalEndedAt.getTime()).toBe(firstJobIntervalEndedAt.getTime());
+    expect(firstJobWithoutFinish?.isActive).toBe(true);
+    expect(firstJobWithoutFinish?.createdAt).toBeDate();
+    expect(firstJobWithoutFinish?.updatedAt).toBeDate();
 
     // first job before retry interval
     const firstJobBeforeRetryInterval = await cronyx.requestJobStart(jobOptions);
@@ -103,9 +124,13 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
     // first job after retry interval
     const firstJobAfterRetryInterval = await cronyx.requestJobStart(jobOptions);
     expect(firstJobAfterRetryInterval?.id).not.toBe(null);
+    expect(firstJobAfterRetryInterval?.name).toBe(jobName);
     expect(firstJobAfterRetryInterval?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(firstJobAfterRetryInterval?.intervalStartedAt.getTime()).toBe(firstJobIntervalStartedAt.getTime());
     expect(firstJobAfterRetryInterval?.intervalEndedAt.getTime()).toBe(firstJobIntervalEndedAt.getTime());
+    expect(firstJobAfterRetryInterval?.isActive).toBe(true);
+    expect(firstJobAfterRetryInterval?.createdAt).toBeDate();
+    expect(firstJobAfterRetryInterval?.updatedAt).toBeDate();
     await firstJobAfterRetryInterval!.finish();
   });
 
@@ -113,16 +138,24 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
     // first job without finish
     const firstJobWithoutFinish = await cronyx.requestJobStart({ ...jobOptions, noLock: true });
     expect(firstJobWithoutFinish?.id).toBe(null);
+    expect(firstJobWithoutFinish?.name).toBe(jobName);
     expect(firstJobWithoutFinish?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(firstJobWithoutFinish?.intervalStartedAt.getTime()).toBe(firstJobIntervalStartedAt.getTime());
     expect(firstJobWithoutFinish?.intervalEndedAt.getTime()).toBe(firstJobIntervalEndedAt.getTime());
+    expect(firstJobWithoutFinish?.isActive).toBe(true);
+    expect(firstJobWithoutFinish?.createdAt).toBeDate();
+    expect(firstJobWithoutFinish?.updatedAt).toBeDate();
 
     // first job with interruption
     const firstJobWithFinish = await cronyx.requestJobStart({ ...jobOptions, noLock: true });
     expect(firstJobWithFinish?.id).toBe(null);
+    expect(firstJobWithFinish?.name).toBe(jobName);
     expect(firstJobWithFinish?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(firstJobWithFinish?.intervalStartedAt.getTime()).toBe(firstJobIntervalStartedAt.getTime());
     expect(firstJobWithFinish?.intervalEndedAt.getTime()).toBe(firstJobIntervalEndedAt.getTime());
+    expect(firstJobWithFinish?.isActive).toBe(true);
+    expect(firstJobWithFinish?.createdAt).toBeDate();
+    expect(firstJobWithFinish?.updatedAt).toBeDate();
     await firstJobWithFinish!.interrupt();
 
     // second job
@@ -132,9 +165,13 @@ export function testBehavesLikeCronyx<S extends BaseJobStore<I>, I = JobLockId<S
       jobIntervalStartedAt: secondJobIntervalStartedAt,
     });
     expect(secondJob?.id).toBe(null);
+    expect(secondJob?.name).toBe(jobName);
     expect(secondJob?.interval).toBe(1000 * 60 * 60 * 24); // 1 day
     expect(secondJob?.intervalStartedAt.getTime()).toBe(secondJobIntervalStartedAt.getTime());
     expect(secondJob?.intervalEndedAt.getTime()).toBe(secondJobIntervalEndedAt.getTime());
+    expect(secondJob?.isActive).toBe(true);
+    expect(secondJob?.createdAt).toBeDate();
+    expect(secondJob?.updatedAt).toBeDate();
     await secondJob!.finish();
   });
 

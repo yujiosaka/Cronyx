@@ -28,6 +28,12 @@ export default class Job<I> {
     return this.#jobLock._id;
   }
 
+  get name(): string {
+    if (!this.#jobLock || !this.#jobLock.isActive) throw new CronyxError(`Job is not active for ${this.#jobName}`);
+
+    return this.#jobLock.jobName;
+  }
+
   get interval(): number {
     if (!this.#jobLock || !this.#jobLock.isActive) throw new CronyxError(`Job is not active for ${this.#jobName}`);
 
@@ -44,6 +50,24 @@ export default class Job<I> {
     if (!this.#jobLock || !this.#jobLock.isActive) throw new CronyxError(`Job is not active for ${this.#jobName}`);
 
     return this.#jobLock.jobIntervalEndedAt;
+  }
+
+  get isActive(): boolean {
+    if (!this.#jobLock || !this.#jobLock.isActive) throw new CronyxError(`Job is not active for ${this.#jobName}`);
+
+    return true;
+  }
+
+  get createdAt(): Date {
+    if (!this.#jobLock || !this.#jobLock.isActive) throw new CronyxError(`Job is not active for ${this.#jobName}`);
+
+    return this.#jobLock.createdAt;
+  }
+
+  get updatedAt(): Date {
+    if (!this.#jobLock || !this.#jobLock.isActive) throw new CronyxError(`Job is not active for ${this.#jobName}`);
+
+    return this.#jobLock.updatedAt;
   }
 
   async finish(): Promise<void> {

@@ -72,9 +72,13 @@ The `Job` class encapsulates individual tasks managed and executed by Cronyx.
 ### Properties
 
 - `id`: [string] | [ObjectId] | [null] - A unique identifier for the job, returns `null` for bypassed job lock.
+- `name`: [string] - The identifier for the series of jobs.
 - `interval`: [number] - The frequency of the job in milliseconds.
+- `isActive`: [boolean] - The active status of the job.
 - `intervalStartedAt`: [Date] - Starting time of the job's interval.
 - `intervalEndedAt`: [Date] - Ending time of the job's interval.
+- `createdAt`: [Date] - Created date of the job.
+- `updatedAt`: [Date] - Last updated date of the job.
 
 ### Methods
 
