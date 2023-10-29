@@ -109,13 +109,13 @@ Connect to a MongoDB server.
 #### `connect`
 
 ```ts
-static connect(url: string, options: MongoClientOptions): Promise<MongodbJobStore>
+static connect(url: string, options: ConnectOptions): Promise<MongodbJobStore>
 ```
 
 **Parameters**:
 
 - `url`: [string] - MongoDB connection URL.
-- `options`: [MongoClientOptions] - Options for MongoDB connection.
+- `options`: [ConnectOptions] - Options for MongoDB connection.
 
 #### Methods
 
@@ -237,7 +237,7 @@ close(): Promise<Job>
 [Date]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date "Date"
 [Duration]: https://date-fns.org/v2.30.0/docs/Duration "Duration"
 [BaseJobStore]: https://github.com/yujiosaka/Cronyx/blob/main/docs/API.md#class-basejobstore "BaseJobStore"
-[MongoClientOptions]: https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connection-options/ "MongoClientOptions"
+[ConnectOptions]: https://mongoosejs.com/docs/connections.html#options "ConnectOptions"
 [RedisClientOptions]: https://github.com/redis/node-redis/blob/master/docs/client-configuration.md "RedisClientOptions"
 [MysqlConnectionOptions]: https://typeorm.delightful.studio/interfaces/_driver_mysql_mysqlconnectionoptions_.mysqlconnectionoptions.html "MysqlConnectionOptions"
 [PostgresConnectionOptions]: https://typeorm.delightful.studio/interfaces/_driver_postgres_postgresconnectionoptions_.postgresconnectionoptions "PostgresConnectionOptions"
