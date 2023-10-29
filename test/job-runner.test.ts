@@ -36,6 +36,7 @@ describe("JobRunner", () => {
 
   beforeEach(() => {
     jobStore = {
+      sync: mock(() => Promise.resolve()),
       close: mock(() => Promise.resolve()),
       fetchLastJobLock: mock((jobName) => {
         switch (jobName) {

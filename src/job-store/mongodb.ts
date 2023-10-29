@@ -1,5 +1,5 @@
 import { MongoError } from "mongodb";
-import type { MongoClientOptions } from "mongodb";
+import type { ConnectOptions } from "mongodb";
 import { createConnection } from "mongoose";
 import type { Connection, Model, Types } from "mongoose";
 import type BaseJobStore from ".";
@@ -22,10 +22,14 @@ export default class MongodbJobStore implements BaseJobStore<Types.ObjectId> {
     this.#model = conn.model<MongodbJobLock>("JobLock", mongodbJobLockSchema);
   }
 
-  static async connect(url: string, options?: MongoClientOptions): Promise<MongodbJobStore> {
+  static async connect(url: string, options?: ConnectOptions): Promise<MongodbJobStore> {
     const conn = createConnection(url, options);
     await conn.asPromise();
     return new MongodbJobStore(conn);
+  }
+
+  async sync() {
+    await this.#conn.syncIndexes();
   }
 
   async close() {

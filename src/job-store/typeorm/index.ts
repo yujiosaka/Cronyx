@@ -22,6 +22,10 @@ export default abstract class TypeormJobStore implements BaseJobStore<string> {
     this.#repository = dataSource.getRepository<TypeormJobLock>(TypeormJobLockEntity);
   }
 
+  async sync() {
+    await this.#dataSource.synchronize();
+  }
+
   async close() {
     await this.#dataSource.destroy();
   }

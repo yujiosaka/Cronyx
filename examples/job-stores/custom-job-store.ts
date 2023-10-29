@@ -16,6 +16,8 @@ export default class MemoryJobStore implements BaseJobStore<string> {
     return new MemoryJobStore();
   }
 
+  async sync(): Promise<void> {}
+
   async close(): Promise<void> {}
 
   async fetchLastJobLock(jobName: string): Promise<BaseJobLock<string> | null> {

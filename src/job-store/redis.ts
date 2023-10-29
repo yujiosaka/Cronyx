@@ -28,6 +28,10 @@ export default class RedisJobStore implements BaseJobStore<string> {
     return new RedisJobStore(client);
   }
 
+  async sync() {
+    // Do nothing
+  }
+
   async close() {
     await this.#client.quit();
   }

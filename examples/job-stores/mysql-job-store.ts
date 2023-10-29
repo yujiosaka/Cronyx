@@ -2,6 +2,8 @@
 import Cronyx, { MysqlJobStore } from "../../src";
 
 const jobStore = await MysqlJobStore.connect({ type: "mysql", url: Bun.env.MYSQL_URI });
+// Syncronize joblocks table manually
+await jobStore.sync();
 const cronyx = new Cronyx({ jobStore });
 await cronyx.requestJobExec(
   {

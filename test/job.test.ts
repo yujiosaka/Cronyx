@@ -24,6 +24,7 @@ describe.each([[false], [true]])("Job", (noLock) => {
 
   beforeEach(() => {
     jobStore = {
+      sync: mock(() => Promise.resolve()),
       close: mock(() => Promise.resolve()),
       fetchLastJobLock: mock(() => Promise.resolve(lastJobLock)),
       activateJobLock: mock(() => Promise.resolve(activatedJobLock)),

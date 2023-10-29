@@ -117,6 +117,24 @@ static connect(url: string, options: MongoClientOptions): Promise<MongodbJobStor
 - `url`: [string] - MongoDB connection URL.
 - `options`: [MongoClientOptions] - Options for MongoDB connection.
 
+#### Methods
+
+##### `sync`
+
+Create indexes on joblocks collection manually.
+
+```ts
+sync(): Promise<Job>
+```
+
+##### `close`
+
+Close connection to the MongoDB server
+
+```ts
+close(): Promise<Job>
+```
+
 ### RedisJobStore Class
 
 Connect to a Redis server.
@@ -130,6 +148,24 @@ static connect(options: RedisClientOptions): Promise<RedisJobStore>
 **Parameters**:
 
 - `options`: [RedisClientOptions] - Options for Redis connection.
+
+#### Methods
+
+##### `sync`
+
+Do nothing. Provided for the consistency with other job stores.
+
+```ts
+sync(): Promise<Job>
+```
+
+##### `close`
+
+Close connection to the Redis server
+
+```ts
+close(): Promise<Job>
+```
 
 ### MysqlJobStore Class
 
@@ -145,6 +181,24 @@ static connect(options: MysqlConnectionOptions): Promise<MysqlJobStore>
 
 - `options`: [MysqlConnectionOptions] - Options for MySQL connection.
 
+#### Methods
+
+##### `sync`
+
+Create joblocks table and indexes manually.
+
+```ts
+sync(): Promise<Job>
+```
+
+##### `close`
+
+Close connection to the MySQL server
+
+```ts
+close(): Promise<Job>
+```
+
 ### PostgresJobStore Class
 
 Connect to a PostgreSQL database.
@@ -158,6 +212,22 @@ static connect(options: PostgresConnectionOptions): Promise<PostgresJobStore>
 **Parameters**:
 
 - `options`: [PostgresConnectionOptions] - Options for PostgreSQL connection.
+
+##### `sync`
+
+Create joblocks table and indexes manually.
+
+```ts
+sync(): Promise<Job>
+```
+
+##### `close`
+
+Close connection to the Postgres server
+
+```ts
+close(): Promise<Job>
+```
 
 [null]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null "null"
 [Array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array "Array"
