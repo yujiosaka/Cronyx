@@ -1,5 +1,5 @@
 import type { Duration } from "date-fns";
-import { differenceInMilliseconds } from "date-fns";
+import { differenceInMilliseconds, min } from "date-fns";
 import { CronyxArgumentError, CronyxError } from "./error";
 import Job from "./job";
 import type BaseJobLock from "./job-lock";
@@ -61,10 +61,19 @@ export default class JobRunner<I> {
   }
 
   async requestJobStart(): Promise<Job<I> | null> {
+    const requestedAt = new Date();
+    const bufferedRequestedAt = subInterval(requestedAt, this.#startBuffer, this.#timezone);
+
     if (this.#jobIntervalStartedAt) {
       if (!this.#noLock) throw new CronyxArgumentError("Should enable `noLock` when `jobIntervalStartedAt` is passed");
 
-      const jobIntervalEndedAt = addInterval(this.#jobIntervalStartedAt, this.#jobInterval, this.#timezone);
+      if (bufferedRequestedAt < this.#jobIntervalStartedAt) {
+        log(`Job is not reached to start time for ${this.#jobName}`);
+        return null;
+      }
+
+      const maxJobIntervalEndedAt = addInterval(this.#jobIntervalStartedAt, this.#jobInterval, this.#timezone);
+      const jobIntervalEndedAt = min([maxJobIntervalEndedAt, bufferedRequestedAt]);
       const jobInterval = differenceInMilliseconds(jobIntervalEndedAt, this.#jobIntervalStartedAt);
       const jobLock = MockJobLock.parse({ jobName: this.#jobName, jobInterval, jobIntervalEndedAt });
 
@@ -76,7 +85,6 @@ export default class JobRunner<I> {
       return new Job(this.#jobStore, jobLock);
     }
 
-    const requestedAt = new Date();
     const retryIntervalStartedAt = subInterval(requestedAt, this.#retryInterval ?? requestedAt.getTime(), this.#timezone);
     const lastJobLock = await this.#ensureLastJobLock(requestedAt);
     if (lastJobLock.isActive && lastJobLock.updatedAt > retryIntervalStartedAt) {
@@ -84,12 +92,13 @@ export default class JobRunner<I> {
     }
 
     const jobIntervalStartedAt = getLastDeactivatedJobIntervalEndedAt(lastJobLock);
-    const jobIntervalEndedAt = addInterval(jobIntervalStartedAt, this.#jobInterval, this.#timezone);
-    if (lastJobLock._id !== null && subInterval(requestedAt, this.#startBuffer, this.#timezone) < jobIntervalEndedAt) {
+    const maxJobIntervalEndedAt = addInterval(jobIntervalStartedAt, this.#jobInterval, this.#timezone);
+    if (lastJobLock._id !== null && bufferedRequestedAt < maxJobIntervalEndedAt) {
       log(`Job is not reached to start time for ${this.#jobName}`);
       return null;
     }
 
+    const jobIntervalEndedAt = min([maxJobIntervalEndedAt, bufferedRequestedAt]);
     const areRequiredJobsFulfilled = await this.#areRequiredJobsFulfilled(jobIntervalEndedAt);
     if (!areRequiredJobsFulfilled) {
       return null;
