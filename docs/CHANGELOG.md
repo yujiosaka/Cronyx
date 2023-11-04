@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/yujiosaka/Cronyx/compare/v3.0.2...v3.0.3) (2023-11-04)
+
+
+### Bug Fixes
+
+* fix a bug of interrupt called after finish when finish fails ([693aa3d](https://github.com/yujiosaka/Cronyx/commit/693aa3d2201f6577a70f44c25fd40cf590a6f70e))
+
 ## [3.0.2](https://github.com/yujiosaka/Cronyx/compare/v3.0.1...v3.0.2) (2023-10-31)
 
 
