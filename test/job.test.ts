@@ -71,19 +71,21 @@ describe.each([[false], [true]])("Job", (noLock) => {
       expect(job.updatedAt).toEqual(activatedJobLock.updatedAt);
     });
 
-    if (!noLock) {
-      test("finishes a job", async () => {
-        await job.finish();
+    test("finishes a job", async () => {
+      await job.finish();
 
+      if (!noLock) {
         expect(jobStore.deactivateJobLock).toHaveBeenCalledTimes(1);
-      });
+      }
+    });
 
-      test("interrupts a job", async () => {
-        await job.interrupt();
+    test("interrupts a job", async () => {
+      await job.interrupt();
 
+      if (!noLock) {
         expect(jobStore.removeJobLock).toHaveBeenCalledTimes(1);
-      });
-    }
+      }
+    });
 
     describe("after finishing a job", () => {
       beforeEach(async () => {
