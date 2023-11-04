@@ -53,11 +53,12 @@ export default class JobRunner<I> {
 
     try {
       await task(job);
-      await job.finish();
     } catch (error) {
       await job.interrupt();
       throw error;
     }
+
+    await job.finish();
   }
 
   async requestJobStart(): Promise<Job<I> | null> {

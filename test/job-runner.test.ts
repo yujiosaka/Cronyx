@@ -78,7 +78,7 @@ describe("JobRunner", () => {
       expect(job?.createdAt).toBeDate();
       expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
     });
 
     test("runs job when last job lock is not found", async () => {
@@ -95,7 +95,7 @@ describe("JobRunner", () => {
       expect(job?.createdAt).toBeDate();
       expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
     });
 
     test("does not run job when last job lock is active", async () => {
@@ -121,7 +121,7 @@ describe("JobRunner", () => {
       expect(job?.createdAt).toBeDate();
       expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(2);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
     });
 
     test("does not run job with unfulfilled job requirement", async () => {
@@ -169,7 +169,7 @@ describe("JobRunner", () => {
       expect(job?.createdAt).toBeDate();
       expect(job?.updatedAt).toBeDate();
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
     });
 
     test("runs job with no lock", async () => {
@@ -212,9 +212,9 @@ describe("JobRunner", () => {
 
       expect(failureTask).toHaveBeenCalledTimes(1);
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
       expect(finish).not.toHaveBeenCalled();
-      expect(interrupt).toHaveBeenCalled();
+      expect(interrupt).toHaveBeenCalledTimes(1);
     });
 
     test("finishes task", async () => {
@@ -223,8 +223,8 @@ describe("JobRunner", () => {
 
       expect(successTask).toHaveBeenCalledTimes(1);
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
-      expect(finish).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
+      expect(finish).toHaveBeenCalledTimes(1);
       expect(interrupt).not.toHaveBeenCalled();
     });
 
@@ -236,8 +236,8 @@ describe("JobRunner", () => {
 
       expect(successTask).toHaveBeenCalledTimes(1);
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
-      expect(finish).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
+      expect(finish).toHaveBeenCalledTimes(1);
       expect(interrupt).not.toHaveBeenCalled();
     });
 
@@ -260,8 +260,8 @@ describe("JobRunner", () => {
 
       expect(successTask).toHaveBeenCalledTimes(1);
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(2);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
-      expect(finish).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
+      expect(finish).toHaveBeenCalledTimes(1);
       expect(interrupt).not.toHaveBeenCalled();
     });
 
@@ -310,8 +310,8 @@ describe("JobRunner", () => {
 
       expect(successTask).toHaveBeenCalledTimes(1);
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
-      expect(jobStore.activateJobLock).toHaveBeenCalled();
-      expect(finish).toHaveBeenCalled();
+      expect(jobStore.activateJobLock).toHaveBeenCalledTimes(1);
+      expect(finish).toHaveBeenCalledTimes(1);
       expect(interrupt).not.toHaveBeenCalled();
     });
 
@@ -322,7 +322,7 @@ describe("JobRunner", () => {
       expect(successTask).toHaveBeenCalledTimes(1);
       expect(jobStore.fetchLastJobLock).toHaveBeenCalledTimes(1);
       expect(jobStore.activateJobLock).not.toHaveBeenCalled();
-      expect(finish).toHaveBeenCalled();
+      expect(finish).toHaveBeenCalledTimes(1);
       expect(interrupt).not.toHaveBeenCalled();
     });
 
@@ -333,7 +333,7 @@ describe("JobRunner", () => {
       expect(successTask).toHaveBeenCalledTimes(1);
       expect(jobStore.fetchLastJobLock).not.toHaveBeenCalledTimes(1);
       expect(jobStore.activateJobLock).not.toHaveBeenCalled();
-      expect(finish).toHaveBeenCalled();
+      expect(finish).toHaveBeenCalledTimes(1);
       expect(interrupt).not.toHaveBeenCalled();
     });
   });
