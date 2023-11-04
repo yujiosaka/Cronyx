@@ -46,7 +46,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Bun
         uses: oven-sh/setup-bun@v1
 
       - name: Install dependencies
@@ -73,7 +73,7 @@ jobs:
       - id: semantic-release
         name: Run semantic-release
         run: |
-          npx semantic-release
+          bunx semantic-release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
