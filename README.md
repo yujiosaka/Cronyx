@@ -4,6 +4,13 @@
 
 Script-based task scheduler with scalable architecture, and integrated dependency management.
 
+## 🌐 CronyxServer Integration
+
+Cronyx can now be extended beyond the TypeScript ecosystem using [CronyxServer](https://github.com/yujiosaka/CronyxServer). This HTTP server interface allows you to leverage Cronyx's features from any language.
+
+- **Language Agnostic**: With CronyxServer, you can use Cronyx in languages like Python, Go, Java, and more.
+- **Ease of Integration**: CronyxServer comes with client libraries like [CronyxClient.js](https://github.com/yujiosaka/CronyxClient.js) and [CronyxClient.py](https://github.com/yujiosaka/CronyxClient.py), making integration seamless.
+
 ## 🌟 Features
 
 <img src="https://github.com/yujiosaka/Cronyx/assets/2261067/09977f48-6bfb-48a6-93ad-3325fccc901a" alt="icon" width="300" align="right">
